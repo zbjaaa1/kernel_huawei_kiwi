@@ -13,5 +13,5 @@ config HUAWEI_KERNEL
 	default y
 	help
 	use huawei code
-
+source "utils/Kconfig"
 source "arch/$SRCARCH/Kconfig"
