@@ -2770,6 +2770,10 @@ static int cgroup_add_file(struct cgroup *cgrp, struct cgroup_subsys *subsys,
 	dput(dentry);
 out:
 	kfree(cfe);
+	if (cft->ss && (cgrp->root->flags & CGRP_ROOT_NOPREFIX) && !(cft->flags & CFTYPE_NO_PREFIX)) {
+                snprintf(name, CGROUP_FILE_NAME_MAX, "%s.%s", cft->ss->name, cft->name);
+                kernfs_create_link(cgrp->kn, name, kn);
+	}
 	return error;
 }
 
